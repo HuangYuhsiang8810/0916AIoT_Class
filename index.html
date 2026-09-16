@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal Portfolio & Dashboard showcasing real-time clock, personalized status, and modern interactive widgets.">
+  <title>Personal Space | Real-Time Dashboard</title>
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons CDN for sleek modern iconography -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient background lighting and particles -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <canvas id="particle-canvas"></canvas>
+  </div>
+
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar glass-card">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-text">Personal Space</span>
+      </div>
+
+      <div class="nav-controls">
+        <button id="format-toggle" class="control-btn" title="Toggle 12h / 24h Clock" aria-label="Toggle time format">
+          <i class="ph ph-clock"></i>
+          <span id="format-badge">24H</span>
+        </button>
+
+        <button id="theme-toggle" class="control-btn" title="Toggle Theme" aria-label="Toggle dark or light theme">
+          <i class="ph ph-moon" id="theme-icon"></i>
+        </button>
+
+        <button id="edit-profile-btn" class="control-btn accent" title="Edit Profile Details" aria-label="Edit Profile">
+          <i class="ph ph-pencil-simple"></i>
+          <span>Edit Profile</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="main-content">
+      
+      <!-- Hero & Identity Section -->
+      <section class="hero-section glass-card">
+        <div class="hero-grid">
+          <div class="avatar-container">
+            <div class="avatar-ring">
+              <div class="avatar" id="avatar-display">
+                <span id="avatar-initials">AN</span>
+              </div>
+            </div>
+            <div class="status-indicator-badge" title="Live status">
+              <span class="pulse-dot"></span>
+              <span id="status-text">Active Now</span>
+            </div>
+          </div>
+
+          <div class="hero-info">
+            <div class="greeting-tag" id="greeting-wrapper">
+              <i class="ph ph-sun-horizon" id="greeting-icon"></i>
+              <span id="time-greeting">Good evening, welcome to my space</span>
+            </div>
+
+            <div class="name-container">
+              <h1 id="display-name" class="user-name">Alex Morgan</h1>
+              <button id="quick-edit-name-btn" class="icon-edit-btn" title="Click to rename" aria-label="Quick edit name">
+                <i class="ph ph-pencil-line"></i>
+              </button>
+            </div>
+
+            <p id="display-bio" class="user-bio">
+              Software Engineer, Creative Thinker & Digital Craftsman. Exploring ideas at the intersection of technology and design.
+            </p>
+
+            <div class="personal-tags" id="tag-list">
+              <span class="tag"><i class="ph ph-code"></i> Engineering</span>
+              <span class="tag"><i class="ph ph-paint-brush"></i> UI/UX Design</span>
+              <span class="tag"><i class="ph ph-sparkle"></i> Innovation</span>
+              <span class="tag"><i class="ph ph-coffee"></i> Coffee Enthusiast</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Centerpiece Clock & Date Widget -->
+      <section class="clock-card glass-card">
+        <div class="card-header">
+          <div class="badge-title">
+            <i class="ph ph-timer"></i>
+            <span>Current Real-Time</span>
+          </div>
+          <div class="timezone-pill" id="timezone-display">
+            <i class="ph ph-globe"></i>
+            <span id="timezone-text">Detecting Timezone...</span>
+          </div>
+        </div>
+
+        <div class="digital-clock-wrapper">
+          <div class="clock-display" id="clock-display">
+            <div class="time-segment hour-segment">
+              <span id="clock-hours">00</span>
+              <span class="segment-label">HOURS</span>
+            </div>
+            <span class="time-colon">:</span>
+            <div class="time-segment min-segment">
+              <span id="clock-minutes">00</span>
+              <span class="segment-label">MINUTES</span>
+            </div>
+            <span class="time-colon">:</span>
+            <div class="time-segment sec-segment">
+              <span id="clock-seconds">00</span>
+              <span class="segment-label">SECONDS</span>
+            </div>
+            <div class="ampm-segment" id="ampm-container" style="display: none;">
+              <span id="clock-ampm">AM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date & Calendar Insights -->
+        <div class="date-metrics-bar">
+          <div class="metric-item">
+            <i class="ph ph-calendar-blank"></i>
+            <div class="metric-text">
+              <span class="metric-label">Full Date</span>
+              <span class="metric-value" id="current-date-str">Wednesday, September 16, 2026</span>
+            </div>
+          </div>
+
+          <div class="metric-divider"></div>
+
+          <div class="metric-item">
+            <i class="ph ph-chart-line-up"></i>
+            <div class="metric-text">
+              <span class="metric-label">Day of Year</span>
+              <span class="metric-value" id="day-of-year-str">Day 259 / 365</span>
+            </div>
+          </div>
+
+          <div class="metric-divider"></div>
+
+          <div class="metric-item">
+            <i class="ph ph-hourglass-high"></i>
+            <div class="metric-text">
+              <span class="metric-label">Year Progress</span>
+              <span class="metric-value" id="year-progress-str">71%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year progress visual bar -->
+        <div class="progress-track" title="Current Year Completion">
+          <div class="progress-fill" id="year-progress-bar" style="width: 71%;"></div>
+        </div>
+      </section>
+
+      <!-- Dashboard Grid: Quick Bio, Inspiration Quote, and Connect -->
+      <section class="dashboard-grid">
+        
+        <!-- Focus & Productivity Card -->
+        <div class="dashboard-card glass-card">
+          <div class="card-title-row">
+            <i class="ph ph-lightning accent-icon"></i>
+            <h3>Today's Focus</h3>
+          </div>
+          <p class="focus-desc">Building meaningful projects, learning continuously, and maintaining high energy.</p>
+          
+          <div class="stats-row">
+            <div class="stat-badge">
+              <span class="stat-number" id="local-utc-offset">+08:00</span>
+              <span class="stat-label">UTC Offset</span>
+            </div>
+            <div class="stat-badge">
+              <span class="stat-number" id="week-number">W38</span>
+              <span class="stat-label">Calendar Week</span>
+            </div>
+            <div class="stat-badge">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Live Sync</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Daily Inspiration / Quote -->
+        <div class="dashboard-card glass-card">
+          <div class="card-title-row">
+            <i class="ph ph-quotes accent-icon"></i>
+            <h3>Thought for the Day</h3>
+            <button id="new-quote-btn" class="tiny-icon-btn" title="Get another quote">
+              <i class="ph ph-arrows-clockwise"></i>
+            </button>
+          </div>
+          <blockquote class="quote-text" id="quote-text">
+            "Time is what we want most, but what we use worst."
+          </blockquote>
+          <span class="quote-author" id="quote-author">— William Penn</span>
+        </div>
+
+        <!-- Connect & Links Card -->
+        <div class="dashboard-card glass-card">
+          <div class="card-title-row">
+            <i class="ph ph-link-simple accent-icon"></i>
+            <h3>Connect & Links</h3>
+          </div>
+          <p class="links-desc">Feel free to reach out, collaborate or say hello!</p>
+          <div class="social-links-grid">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link-btn" title="GitHub">
+              <i class="ph ph-github-logo"></i>
+              <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link-btn" title="LinkedIn">
+              <i class="ph ph-linkedin-logo"></i>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link-btn" title="Twitter / X">
+              <i class="ph ph-x-logo"></i>
+              <span>Twitter</span>
+            </a>
+            <button id="copy-email-btn" class="social-link-btn" title="Copy Email">
+              <i class="ph ph-envelope-simple"></i>
+              <span id="copy-email-label">Email Me</span>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© <span id="copyright-year">2026</span> <strong id="footer-name">Alex Morgan</strong>. Built with precision, care & real-time responsiveness.</p>
+    </footer>
+  </div>
+
+  <!-- Profile Customization Modal -->
+  <div class="modal-overlay" id="edit-modal" aria-hidden="true">
+    <div class="modal-card glass-card">
+      <div class="modal-header">
+        <h2>Customize Profile</h2>
+        <button id="close-modal-btn" class="close-btn" aria-label="Close modal">
+          <i class="ph ph-x"></i>
+        </button>
+      </div>
+
+      <form id="profile-form" class="modal-form">
+        <div class="form-group">
+          <label for="input-name">Your Full Name</label>
+          <input type="text" id="input-name" required placeholder="Enter your name..." maxlength="40">
+        </div>
+
+        <div class="form-group">
+          <label for="input-bio">Bio / Tagline</label>
+          <textarea id="input-bio" rows="3" placeholder="A short description about who you are..." maxlength="180"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="input-status">Current Status</label>
+          <input type="text" id="input-status" placeholder="e.g. Active Now, Focused, Coding..." maxlength="30">
+        </div>
+
+        <div class="form-group">
+          <label for="input-tags">Interests / Focus Tags (comma separated)</label>
+          <input type="text" id="input-tags" placeholder="Engineering, Design, Innovation, Photography">
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="reset-profile-btn" class="btn secondary-btn">Reset Defaults</button>
+          <button type="submit" class="btn primary-btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification" aria-live="polite"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
