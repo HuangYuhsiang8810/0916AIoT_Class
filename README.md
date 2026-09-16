@@ -2,11 +2,14 @@
 
 > **Course**: AIoT & Data Analytics (AIoT-DA)  
 > **Session**: DIO (Do In Class) — 2026-09-16  
-> **Author / Repository**: [HuangYuhsiang8810/0916AIoT_Class](https://github.com/HuangYuhsiang8810/0916AIoT_Class.git)
+> **Author / Repository**: [HuangYuhsiang8810/0916AIoT_Class](https://github.com/HuangYuhsiang8810/0916AIoT_Class.git)  
+> **Live Demo Page**: [https://huangyuhsiang8810.github.io/0916AIoT_Class/](https://huangyuhsiang8810.github.io/0916AIoT_Class/)
 
 ---
 
 ## 📸 Application Preview
+
+🔗 **Live Demo**: [https://huangyuhsiang8810.github.io/0916AIoT_Class/](https://huangyuhsiang8810.github.io/0916AIoT_Class/)
 
 ![Personal Website Screenshot](./screenshot.png)
 
@@ -80,7 +83,13 @@ d:\Personal/
 
 ## 🚀 Getting Started
 
-### Method 1: Local HTTP Server (Recommended)
+### 🌐 Online Live Demo (GitHub Pages)
+Visit the deployed application instantly without any local setup:
+👉 **[https://huangyuhsiang8810.github.io/0916AIoT_Class/](https://huangyuhsiang8810.github.io/0916AIoT_Class/)**
+
+### Local Development
+
+#### Option A: Local HTTP Server (Recommended)
 You can run any local static HTTP server:
 ```bash
 # Python 3
