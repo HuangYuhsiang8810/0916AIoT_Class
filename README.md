@@ -6,6 +6,12 @@
 
 ---
 
+## 📸 Application Preview
+
+![Personal Website Screenshot](./screenshot.png)
+
+---
+
 ## 📖 Project Overview
 
 This project was developed as part of the **AIoT-DA (AIoT & Data Analytics)** in-class practical assignment (DIO). It features a modern, responsive personal website and dashboard combined with an integrated AI Agent skill (`grill-me`) for engineering decision-making.
@@ -57,6 +63,7 @@ This project was developed as part of the **AIoT-DA (AIoT & Data Analytics)** in
 ```text
 d:\Personal/
 ├── README.md                                   # Project documentation and DIO summary
+├── screenshot.png                              # Live application snapshot
 ├── index.html                                  # Semantic HTML5 document structure
 ├── styles.css                                  # Glassmorphic CSS design system
 ├── app.js                                      # Clock engine, theme manager & profile logic
